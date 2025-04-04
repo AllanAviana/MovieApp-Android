@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_android.R
 import com.example.movieapp_android.data.model.Movie
+import com.example.movieapp_android.ui.theme.jostFontFamily
 import com.example.movieapp_android.viewmodel.MovieViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -122,11 +123,11 @@ fun GenreRow(genre: String, movies: List<Movie>) {
     Text(
         text = genre,
         color = Color.White.copy(alpha = 0.8f),
-        fontSize = 14.sp,
+        fontSize = 20.sp,
         modifier = Modifier
-            .padding(top = 8.dp)
+            .padding(vertical = 8.dp),
+        fontFamily = jostFontFamily
     )
-    if(movies.isNotEmpty()){
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
@@ -137,9 +138,8 @@ fun GenreRow(genre: String, movies: List<Movie>) {
                         painter = rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${movie.poster_path}"),
                         contentDescription = "",
                         modifier = Modifier
-                            .width(120.dp)
-                            .height(180.dp)
-
+                            .width(136.dp)
+                            .height(202.dp)
                     )
 
                     Text(
@@ -150,21 +150,12 @@ fun GenreRow(genre: String, movies: List<Movie>) {
                             .padding(top = 8.dp)
                             .width(120.dp),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = jostFontFamily
                     )
                 }
             }
         }
-    }
-    else{
-        Text(
-            text = "No movies found",
-            color = Color.White.copy(alpha = 0.8f),
-            fontSize = 14.sp,
-            modifier = Modifier
-        )
-    }
 }
 
 @Preview
