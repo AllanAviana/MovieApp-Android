@@ -2,6 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
+    id("com.google.dagger.hilt.android") // ✅ Adicione esta linha
+
+
 }
 
 android {
@@ -40,6 +44,22 @@ android {
 }
 
 dependencies {
+
+    // Coil - Library for image loading
+    implementation("io.coil-kt:coil-compose:2.0.0") // Coil with support for Jetpack Compose, to efficiently load images
+
+    // Hilt - Library for Dependency Injection (DI)
+    implementation("com.google.dagger:hilt-android:2.51.1") // Main Hilt library for dependency injection in Android
+    ksp("com.google.dagger:hilt-compiler:2.51.1") // Hilt compiler to generate code for dependency injection
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0") // Support for navigation in Jetpack Compose with Hilt
+
+
+    // Declarative navigation for Jetpack Compose
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    
+    // Retrofit - Library for network calls (REST API)
+    implementation("com.squareup.retrofit2:retrofit:2.11.0") // Main Retrofit dependency for making HTTP requests
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0") // Gson converter to serialize and deserialize JSON automatically
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
