@@ -29,30 +29,51 @@ class MovieViewModel @Inject constructor(
 
     suspend fun getMoviesByGenre(apiKey: String){
         var response = movieRepository.getMoviesByGenre(apiKey, 10749)
+
         _genres.update {
             it.copy(
-                romance = response.results
+                romance = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                },
+                allMovies = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                }
             )
         }
 
         response = movieRepository.getMoviesByGenre(apiKey, 27)
         _genres.update {
             it.copy(
-                horror = response.results
+                horror = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                },
+                allMovies = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                }
             )
         }
 
         response = movieRepository.getMoviesByGenre(apiKey, 28)
         _genres.update {
             it.copy(
-                action = response.results
+                action = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                },
+                allMovies = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                }
             )
         }
 
         response = movieRepository.getMoviesByGenre(apiKey, 53)
         _genres.update {
             it.copy(
-                suspense = response.results
+                suspense = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                },
+                allMovies = response.results.filter { movie ->
+                    movie.id !in genres.value.allMovies.map { it.id }
+                }
             )
         }
 
