@@ -1,4 +1,4 @@
-package com.example.movieapp_android.screen
+package com.example.movieapp_android.presentation.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -6,9 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -32,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_android.R
 import com.example.movieapp_android.data.model.Movie
@@ -40,8 +38,7 @@ import com.example.movieapp_android.viewmodel.MovieViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun HomeScreen(){
-    val viewModel: MovieViewModel = viewModel()
+fun HomeScreen(navController: NavHostController, viewModel: MovieViewModel) {
     val genres = viewModel.genres.collectAsState()
     LazyColumn(
         modifier = Modifier
@@ -156,10 +153,4 @@ fun GenreRow(genre: String, movies: List<Movie>) {
                 }
             }
         }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview(){
-    HomeScreen()
 }

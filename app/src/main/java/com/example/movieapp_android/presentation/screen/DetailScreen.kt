@@ -1,4 +1,4 @@
-package com.example.movieapp_android.screen
+package com.example.movieapp_android.presentation.screen
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -29,11 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
 import com.example.movieapp_android.R
 import com.example.movieapp_android.ui.theme.jostFontFamily
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -173,10 +174,4 @@ fun DetailScreen() {
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun DetailScreenPreview() {
-    DetailScreen()
 }
