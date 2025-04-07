@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.compose.material:material-icons-extended")
+
 
     // Coil - Library for image loading
     implementation("io.coil-kt:coil-compose:2.0.0") // Coil with support for Jetpack Compose, to efficiently load images
