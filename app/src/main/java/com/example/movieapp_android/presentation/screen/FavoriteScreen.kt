@@ -34,16 +34,16 @@ fun FavoriteScreen(viewModel: MovieViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
-            .padding(top = 32.dp),
+            .padding(top = 64.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
             Text(
                 text = "Favorites\nMovies",
                 color = Color.White,
-                fontSize = 32.sp,
+                fontSize = 46.sp,
                 fontFamily = jostFontFamily,
-                lineHeight = 40.sp,
+                lineHeight = 50.sp,
                 textAlign = TextAlign.Center
             )
         }

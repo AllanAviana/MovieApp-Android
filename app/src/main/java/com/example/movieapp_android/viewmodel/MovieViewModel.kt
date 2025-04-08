@@ -28,7 +28,8 @@ class MovieViewModel @Inject constructor(
     private val _favorites = MutableStateFlow<List<Movie>>(emptyList())
     val favorites: StateFlow<List<Movie>> = _favorites.asStateFlow()
 
-
+    private val _highlights = MutableStateFlow<List<Movie>>(emptyList())
+    val highlights: StateFlow<List<Movie>> = _highlights.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -81,6 +82,8 @@ class MovieViewModel @Inject constructor(
                 randomMovie = current.allMovies.random()
             )
         }
+
+        highlightMovie()
     }
 
     fun updateDetailUiState(movie: Movie) {
@@ -130,4 +133,15 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
+
+    fun highlightMovie() {
+        val movies = _genres.value.allMovies.filter { movie ->
+            movie.vote_average >= 7.0
+        }
+
+        if (movies.isNotEmpty()) {
+            _highlights.update { movies }
+        }
+    }
+
 }
