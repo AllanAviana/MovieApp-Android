@@ -9,6 +9,7 @@ import com.example.movieapp_android.data.model.Movie
 import com.example.movieapp_android.data.repository.FavoriteRepository
 import com.example.movieapp_android.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -32,8 +33,6 @@ class MovieViewModel @Inject constructor(
 
     private val _favorites = MutableStateFlow<List<Movie>>(emptyList())
     val favorites: StateFlow<List<Movie>> = _favorites.asStateFlow()
-
-
 
     private val _highlights = MutableStateFlow<List<Movie>>(emptyList())
     val highlights: StateFlow<List<Movie>> = _highlights.asStateFlow()
@@ -112,6 +111,13 @@ class MovieViewModel @Inject constructor(
         }
 
         highlightMovie()
+
+        delay(3000)
+        _genres.update { current ->
+            current.copy(
+                isSuccess = true
+            )
+        }
     }
 
     fun updateDetailUiState(movie: Movie) {
@@ -170,7 +176,6 @@ class MovieViewModel @Inject constructor(
                 vote_average = movie.vote_average,
                 vote_count = movie.vote_count
             )
-
             if (isFavorite) {
                 favoriteRepository.remove(favorite)
             } else {
@@ -178,9 +183,6 @@ class MovieViewModel @Inject constructor(
             }
         }
     }
-
-
-
 
     fun highlightMovie() {
         val movies = _genres.value.allMovies.filter { movie ->

@@ -7,10 +7,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp_android.presentation.screen.DetailScreen
-import com.example.movieapp_android.presentation.screen.FavoriteScreen
-import com.example.movieapp_android.presentation.screen.HighlightScreen
-import com.example.movieapp_android.presentation.screen.HomeScreen
+import com.example.movieapp_android.presentation.screen.detail.DetailScreen
+import com.example.movieapp_android.presentation.screen.favorite.FavoriteScreen
+import com.example.movieapp_android.presentation.screen.highlight.HighlightScreen
+import com.example.movieapp_android.presentation.screen.home.HomeScreen
 import com.example.movieapp_android.viewmodel.MovieViewModel
 
 @Composable

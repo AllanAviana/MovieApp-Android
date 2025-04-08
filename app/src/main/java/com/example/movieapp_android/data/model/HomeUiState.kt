@@ -1,5 +1,7 @@
 package com.example.movieapp_android.data.model
 
+import coil.compose.AsyncImagePainter
+
 data class HomeUiState(
     val romance: List<Movie> = emptyList(),
     val action: List<Movie> = emptyList(),
@@ -24,4 +26,5 @@ data class HomeUiState(
         vote_average = 0.0,
         vote_count = 0
     ),
+    val isSuccess: Boolean = false
 )
