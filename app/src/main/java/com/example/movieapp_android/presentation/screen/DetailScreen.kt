@@ -18,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -25,16 +26,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_android.R
 import com.example.movieapp_android.ui.theme.jostFontFamily
+import com.example.movieapp_android.viewmodel.MovieViewModel
 
 @Composable
-fun DetailScreen(navController: NavHostController) {
+fun DetailScreen(navController: NavHostController, viewModel: MovieViewModel) {
+    val detailUiState = viewModel.detailUiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,15 +49,15 @@ fun DetailScreen(navController: NavHostController) {
                 .fillMaxHeight(0.3f)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.detailmage),
+                painter = rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${detailUiState.value.movie?.poster_path}"),
                 contentDescription = "Detail Image",
                 modifier = Modifier
                     .fillMaxSize(),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Fit
             )
 
             Text(
-                text = "Godzilla x Kong: Rise together or fall alone",
+                text = detailUiState.value.movie?.title ?: "",
                 color = Color.White.copy(alpha = 0.8f),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -67,14 +70,11 @@ fun DetailScreen(navController: NavHostController) {
 
             IconButton(
                 onClick = {
-                    Log.d(
-                        "DetailScreen",
-                        "Back button clicked"
-                    )
+                    navController.popBackStack()
                 },
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .padding(8.dp)
+                    .padding(horizontal = 8.dp, vertical = 16.dp)
                     .size(41.dp),
                 colors = IconButtonColors(
                     containerColor = Color.White,
@@ -109,7 +109,7 @@ fun DetailScreen(navController: NavHostController) {
 
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -117,15 +117,17 @@ fun DetailScreen(navController: NavHostController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "4.06/10",
+                    text = "${detailUiState.value.movie?.vote_average ?: "N/A"}/10",
                     fontSize = 14.sp,
-                    color = Color.White
+                    color = Color.White,
+                    fontFamily = jostFontFamily
                 )
 
                 Text(
-                    text = "1106 votes.",
+                    text = "${detailUiState.value.movie?.vote_count} votes",
                     fontSize = 14.sp,
-                    color = Color.White
+                    color = Color.White,
+                    fontFamily = jostFontFamily
                 )
             }
 
@@ -133,44 +135,50 @@ fun DetailScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(0.25f),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .fillMaxWidth(0.5f),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    for (i in 1..3) {
+                    val vote = detailUiState.value.movie?.vote_average ?: 0.0
+                    val starCount = (vote / 2).toInt()
+
+                    for (i in 0 until starCount) {
                         Image(
                             imageVector = Icons.Default.Star,
-                            contentDescription = "",
-                            colorFilter = ColorFilter.tint(Color.Yellow),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(Color.Yellow)
                         )
                     }
                 }
 
                 Text(
-                    text = "2025-02-12",
+                    text = "${detailUiState.value.movie?.release_date ?: "N/A"}",
                     fontSize = 14.sp,
-                    color = Color.White
+                    color = Color.White,
+                    fontFamily = jostFontFamily
                 )
             }
 
             Text(
-                text = "Action, Adventure, Thriller",
+                text = "${viewModel.genresMovie(detailUiState.value.movie?.genre_ids!!)}",
                 fontSize = 14.sp,
                 color = Color.White.copy(alpha = 0.5f),
                 modifier = Modifier
-                    .padding(top = 6.dp)
+                    .padding(top = 6.dp),
+                fontFamily = jostFontFamily
             )
 
-
             Text(
-                text = "Godzilla x Kong: The New Empire entry follows the explosive showdown of Godzilla vs. Kong with an all-new cinematic adventure, pitting the mighty Kong and the fearsome Godzilla against a colossal undiscovered threat hidden within our world, challenging their very existence, and our own. The epic new film will delve further into the histories of these Titans, their origins and the mysteries of Skull Island and beyond, while uncovering the mythic battle that helped forge these extraordinary beings and tied them to humankind forever.",
-                fontSize = 14.sp,
+                text = "${detailUiState.value.movie?.overview ?: "N/A"}",
+                fontSize = 18.sp,
                 color = Color.White,
                 modifier = Modifier
-                    .padding(top = 30.dp)
+                    .padding(top = 30.dp),
+                fontFamily = jostFontFamily
             )
         }
     }

@@ -21,9 +21,7 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()){
         }
 
         composable(route = "detail_screen"){
-            DetailScreen(navController)
+            DetailScreen(navController, viewModel =  movieViewModel)
         }
-
     }
-
 }

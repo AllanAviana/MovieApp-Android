@@ -3,6 +3,7 @@ package com.example.movieapp_android.presentation.screen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,10 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.movieapp_android.R
@@ -39,7 +38,7 @@ import com.example.movieapp_android.viewmodel.MovieViewModel
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun HomeScreen(navController: NavHostController, viewModel: MovieViewModel) {
-    val genres = viewModel.genres.collectAsState()
+    val homeUiStateState = viewModel.genres.collectAsState()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -60,13 +59,13 @@ fun HomeScreen(navController: NavHostController, viewModel: MovieViewModel) {
 
             Box() {
                 Image(
-                    painter = painterResource(id = R.drawable.homeimage),
+                    painter = rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${homeUiStateState.value.randomMovie?.poster_path}"),
                     contentDescription = "Home Image",
                     modifier = Modifier
                         .height(220.dp)
                         .fillMaxWidth()
                         .padding(end = 16.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds
                 )
 
                 Box(
@@ -85,7 +84,7 @@ fun HomeScreen(navController: NavHostController, viewModel: MovieViewModel) {
                 )
             }
             Text(
-                text = "Batman Begins",
+                text = homeUiStateState.value.randomMovie?.title ?: "N/A",
                 color = Color.White.copy(alpha = 0.8f),
                 fontSize = 14.sp,
                 modifier = Modifier
@@ -97,26 +96,34 @@ fun HomeScreen(navController: NavHostController, viewModel: MovieViewModel) {
         item {
             GenreRow(
                 genre = "Romance",
-                movies = genres.value.romance
+                movies = homeUiStateState.value.romance,
+                navigation = { navController.navigate("detail_screen") },
+                viewModel = viewModel
             )
             GenreRow(
                 genre = "Horro",
-                movies = genres.value.horror
+                movies = homeUiStateState.value.horror,
+                navigation = { navController.navigate("detail_screen") },
+                viewModel = viewModel
             )
             GenreRow(
                 genre = "Action",
-                movies = genres.value.action
+                movies = homeUiStateState.value.action,
+                navigation = { navController.navigate("detail_screen") },
+                viewModel = viewModel
             )
             GenreRow(
                 genre = "Suspene",
-                movies = genres.value.suspense
+                movies = homeUiStateState.value.suspense,
+                navigation = { navController.navigate("detail_screen") },
+                viewModel = viewModel
             )
         }
     }
 }
 
 @Composable
-fun GenreRow(genre: String, movies: List<Movie>) {
+fun GenreRow(genre: String, movies: List<Movie>, navigation: () -> Unit, viewModel: MovieViewModel) {
     Text(
         text = genre,
         color = Color.White.copy(alpha = 0.8f),
@@ -127,6 +134,8 @@ fun GenreRow(genre: String, movies: List<Movie>) {
     )
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .padding(end = 16.dp, bottom = 8.dp)
         ) {
             items(movies) { movie ->
                 Column(
@@ -137,6 +146,10 @@ fun GenreRow(genre: String, movies: List<Movie>) {
                         modifier = Modifier
                             .width(136.dp)
                             .height(202.dp)
+                            .clickable {
+                                navigation()
+                                viewModel.updateDetailUiState(movie)
+                            }
                     )
 
                     Text(
