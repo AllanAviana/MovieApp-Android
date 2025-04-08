@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp") version "2.0.0-1.0.21"
-    id("com.google.dagger.hilt.android") // ✅ Adicione esta linha
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 
 
 }
@@ -44,6 +45,11 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
+
     implementation("com.google.accompanist:accompanist-pager-indicators:0.32.0")
 
 
@@ -58,7 +64,7 @@ dependencies {
 
     // Hilt - Library for Dependency Injection (DI)
     implementation("com.google.dagger:hilt-android:2.51.1") // Main Hilt library for dependency injection in Android
-    ksp("com.google.dagger:hilt-compiler:2.51.1") // Hilt compiler to generate code for dependency injection
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0") // Support for navigation in Jetpack Compose with Hilt
 
 
