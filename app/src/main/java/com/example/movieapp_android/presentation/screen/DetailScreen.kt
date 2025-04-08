@@ -38,6 +38,7 @@ import com.example.movieapp_android.viewmodel.MovieViewModel
 @Composable
 fun DetailScreen(navController: NavHostController, viewModel: MovieViewModel) {
     val detailUiState = viewModel.detailUiState.collectAsState()
+    val favorites = viewModel.favorites.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -180,6 +181,39 @@ fun DetailScreen(navController: NavHostController, viewModel: MovieViewModel) {
                     .padding(top = 30.dp),
                 fontFamily = jostFontFamily
             )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            IconButton(
+                onClick = {
+                    viewModel.addOrRemoveToFavorites(detailUiState.value.movie!!)
+                },
+                modifier = Modifier
+                    .padding(end = 32.dp, top = 22.dp)
+                    .size(36.dp)
+                    .align(Alignment.End),
+                colors = IconButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
+                    disabledContentColor = Color.White.copy(alpha = 0.3f)
+
+                )
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.heart),
+                    contentDescription = "Back button",
+                    modifier = Modifier
+                        .size(20.dp),
+                    colorFilter = ColorFilter.tint(
+                        if (favorites.value.contains(detailUiState.value.movie)) Color.Red else Color.Gray
+                    )
+                )
+            }
         }
     }
 }

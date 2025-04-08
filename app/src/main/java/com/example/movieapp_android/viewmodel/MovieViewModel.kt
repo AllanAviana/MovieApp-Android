@@ -25,6 +25,9 @@ class MovieViewModel @Inject constructor(
     private val _detail = MutableStateFlow(DetailUiState())
     val detailUiState: StateFlow<DetailUiState> = _detail.asStateFlow()
 
+    private val _favorites = MutableStateFlow<List<Movie>>(emptyList())
+    val favorites: StateFlow<List<Movie>> = _favorites.asStateFlow()
+
 
 
     init {
@@ -113,6 +116,18 @@ class MovieViewModel @Inject constructor(
 
         return genre.joinToString(", ") { id ->
             genreMap[id] ?: "Unknown"
+        }
+    }
+
+    fun addOrRemoveToFavorites(movie: Movie) {
+        if (_favorites.value.contains(movie)) {
+            _favorites.update { current ->
+                current.filter { it.id != movie.id }
+            }
+        } else {
+            _favorites.update { current ->
+                current + movie
+            }
         }
     }
 }
