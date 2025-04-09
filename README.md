@@ -18,7 +18,7 @@
 
 ## Screenshots
 
-| Home View | Favorite View | Highlight View | Detail View |
+| Home Screen | Favorite Screen | Highlight Screen | Detail Screen |
 |-----------|---------------|----------------|-------------|
 | <img src="image/HomeScreen.png" alt="Home View" width="300"> | <img src="image/FavoriteScreen.png" alt="Favorite View" width="300"> | <img src="image/HighlightScreen.png" alt="Highlight View" width="300"> | <img src="image/DetailScreen.png" alt="Detail View" width="300"> |
 
