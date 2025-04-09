@@ -186,7 +186,7 @@ class MovieViewModel @Inject constructor(
 
     fun highlightMovie() {
         val movies = _genres.value.allMovies.filter { movie ->
-            movie.vote_average >= 7.0
+            movie.vote_average >= 7.0 && movie.vote_count >= 10
         }
 
         if (movies.isNotEmpty()) {

@@ -5,5 +5,4 @@
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/logoapp</item>
         <item name="android:windowBackground">@color/purple_200</item>
     </style>
-
 </resources>

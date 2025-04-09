@@ -45,6 +45,11 @@ android {
 }
 
 dependencies {
+
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.32.0")
+
+    implementation ("androidx.core:core-splashscreen:1.0.0")
+
     implementation ("com.github.MahboubehSeyedpour:jetpack-loading:1.1.0")
 
     implementation ("androidx.room:room-runtime:2.6.1")
