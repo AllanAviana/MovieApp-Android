@@ -31,10 +31,10 @@ fun AppNavGraph(navController: NavHostController = rememberNavController(), modi
             DetailScreen(navController, viewModel =  movieViewModel)
         }
         composable(route = "favorites"){
-            FavoriteScreen(viewModel = movieViewModel)
+            FavoriteScreen(viewModel = movieViewModel, navController)
         }
         composable(route = "highlights"){
-            HighlightScreen(viewModel = movieViewModel)
+            HighlightScreen(viewModel = movieViewModel, navController)
 
         }
     }
