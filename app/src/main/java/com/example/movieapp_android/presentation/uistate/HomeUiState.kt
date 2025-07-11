@@ -1,13 +1,13 @@
-package com.example.movieapp_android.data.model
+package com.example.movieapp_android.presentation.uistate
 
-import coil.compose.AsyncImagePainter
+import com.example.movieapp_android.data.model.Movie
 
 data class HomeUiState(
     val romance: List<Movie> = emptyList(),
     val action: List<Movie> = emptyList(),
     val horror: List<Movie> = emptyList(),
     val suspense: List<Movie> = emptyList(),
-    val allMovies: List<Movie> = emptyList(),
+    var allMovies: List<Movie> = emptyList(),
     val favorites: List<Movie> = emptyList(),
     val highlights: List<Movie> = emptyList(),
     val randomMovie: Movie? = Movie(

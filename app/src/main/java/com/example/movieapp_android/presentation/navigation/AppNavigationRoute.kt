@@ -11,5 +11,4 @@ sealed class Routes(val route: String, val icon: ImageVector, val label: String)
     object DetailScreen : Routes("detail_screen", icon = Icons.Filled.Home, label = "Detail")
     object FavoriteScreen : Routes("favorites", icon = Icons.Default.Favorite, label = "Favorites")
     object HighlightScreen : Routes("highlights", icon = Icons.Default.Star, label = "Highlights")
-
 }

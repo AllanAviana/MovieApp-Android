@@ -16,9 +16,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.movieapp_android.presentation.uistate.HomeUiState
 
 @Composable
-fun RandomMovieBanner(uiState: com.example.movieapp_android.data.model.HomeUiState) {
+fun RandomMovieBanner(uiState: HomeUiState) {
     Box {
         Image(
             painter = rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${uiState.randomMovie?.poster_path}"),

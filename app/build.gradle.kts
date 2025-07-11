@@ -45,6 +45,9 @@ android {
 }
 
 dependencies {
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+
+    testImplementation ("app.cash.turbine:turbine:1.0.0")
 
     implementation("com.google.accompanist:accompanist-navigation-animation:0.32.0")
 

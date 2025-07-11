@@ -1,4 +1,4 @@
-package com.example.movieapp_android.data.api
+package com.example.movieapp_android.data.contracts
 
 import com.example.movieapp_android.data.model.MovieResponse
 import retrofit2.http.GET

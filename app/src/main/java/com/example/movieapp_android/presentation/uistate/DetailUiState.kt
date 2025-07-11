@@ -1,4 +1,6 @@
-package com.example.movieapp_android.data.model
+package com.example.movieapp_android.presentation.uistate
+
+import com.example.movieapp_android.data.model.Movie
 
 data class DetailUiState(
     val movie: Movie? = Movie(

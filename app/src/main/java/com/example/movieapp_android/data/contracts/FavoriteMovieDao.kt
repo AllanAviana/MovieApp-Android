@@ -1,4 +1,4 @@
-package com.example.movieapp_android.data.local
+package com.example.movieapp_android.data.contracts
 
 import androidx.room.*
 import com.example.movieapp_android.data.model.FavoriteMovie

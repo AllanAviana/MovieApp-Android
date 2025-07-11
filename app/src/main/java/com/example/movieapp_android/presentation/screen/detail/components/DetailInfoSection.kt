@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp_android.data.model.DetailUiState
+import com.example.movieapp_android.presentation.uistate.DetailUiState
 import com.example.movieapp_android.ui.theme.jostFontFamily
 import com.example.movieapp_android.viewmodel.MovieViewModel
 

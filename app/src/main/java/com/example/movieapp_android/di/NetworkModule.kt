@@ -2,9 +2,13 @@ package com.example.movieapp_android.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.movieapp_android.data.api.MovieApi
+import com.example.movieapp_android.data.contracts.FavoriteRepository
+import com.example.movieapp_android.data.contracts.MovieApi
+import com.example.movieapp_android.data.contracts.MovieRepository
 import com.example.movieapp_android.data.local.AppDatabase
-import com.example.movieapp_android.data.local.FavoriteMovieDao
+import com.example.movieapp_android.data.contracts.FavoriteMovieDao
+import com.example.movieapp_android.data.repository.FavoriteRepositoryImpl
+import com.example.movieapp_android.data.repository.MovieRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +48,13 @@ object NetworkModule {
     @Singleton
     fun provideFavoriteDao(db: AppDatabase): FavoriteMovieDao = db.favoriteMovieDao()
 
+    @Provides @Singleton
+    fun provideMovieRepository(api: MovieApi): MovieRepository =
+        MovieRepositoryImpl(api)
+
+    @Provides @Singleton
+    fun provideFavoriteRepository(
+        dao: FavoriteMovieDao
+    ): FavoriteRepository = FavoriteRepositoryImpl(dao)
 
 }
